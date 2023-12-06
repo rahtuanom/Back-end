@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "type": "Daily Room",
+    "price": 300000
+  },
+  {
+    "id": 2,
+    "type": "Family Room",
+    "price": 550000
+  },
+  {
+    "id": 3,
+    "type": "Exclusive Room",
+    "price": 950000
+  },
+  {
+    "id": 4,
+    "type": "Honey Room",
+    "price": 350000
+  },
+  {
+    "id": 5,
+    "type": "Panoramic Room",
+    "price": 500000
+  }
+]
