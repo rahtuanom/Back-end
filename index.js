@@ -20,32 +20,40 @@ server.get("/",(request, response) => {
 
 server.listen(PORT, () =>{
     console.log('iya udah nyala nih, silakan di cek aja di http://localhost:3000/')
-})
+});
 
+server.all("*", (req, res) => {
+	res.status(404).send("404 routes not found");
+});
 
 server.get("/rooms", async (req, res) => {
-    fs.readFile('./data/rooms.json', (error, data ) =>{
-        if (error) res.send("Gagal dalam pencarian data")
-        const rooms = JSON.parse(data)
-        res.status(200).send(rooms)
-    });
-
-})
+	const connection = await connectionPool.getConnection();
+	try {
+		const [rooms] = await connection.query(`SELECT * FROM Room`);
+		console.log(rooms);
+		res.status(200).send(rooms);
+	} catch (error) {
+		console.log(error);
+	}
+});
 
 server.get("/rooms/:id", async (request, response) => {
-    const{id} = request.params;
-
-
-    fs.readFile('./data/rooms.json', (error, data ) =>{
-        if (error) res.send("Gagal dalam pencarian data")
-        const rooms = JSON.parse(data);
-        const room = rooms.find((room) => room.id === parseInt(id));
-        if (!room) {
-            response.status(404).send("Rooms not found");
-        }
-        response.status(200).send(room);
-    });
-
+	const { id } = request.params;
+	const connection = await connectionPool.getConnection();
+	try {
+		const [rooms] = await connection.query(
+			`SELECT * FROM Product WHERE id = ?`,
+			[id]
+		);
+		console.log(rooms);
+		if (!products.length) {
+			response.status(404).send("Rooms not found");
+		} else {
+			response.status(200).send(rooms);
+		}
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 server.post("/rooms",  (req, res) => {
@@ -71,7 +79,7 @@ server.post("/rooms",  (req, res) => {
         })
     })
 
-})
+});
 
 
 
