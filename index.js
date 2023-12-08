@@ -22,6 +22,7 @@ server.get("/",(request, response) => {
 
 server.use("/rooms", roomRouter)
 
+
 server.all("*", (req, res) => {
 	res.status(404).send("404 routes not found");
 });
