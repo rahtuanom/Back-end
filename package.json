@@ -4,7 +4,7 @@
   "description": "JANGAN LUPA UNTUK NPM INSTALL SEBELUM MELAKUKAN NPM START!",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npx prisma generate && node index.js",
     "start:dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
