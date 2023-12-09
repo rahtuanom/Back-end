@@ -1,4 +1,4 @@
-
+// const connection = require('./app/model/index')
 const express = require('express');
 const server = express();
 require ('dotenv').config();
