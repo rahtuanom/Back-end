@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pemesanan {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String
+  check_in DateTime
+  check_out DateTime
+  adults  Adults  @default(NONE)
+  rooms Rooms @default(One)
+  type_room Type @default(Daily)
+}
+enum Adults {
+  NONE
+  CHILD_1
+  CHILD_2
+  CHILD_3
+  CHILD_4
+  CHILD_5 
+
+}
+
+enum Rooms {
+  One
+  Two
+  Three
+  Four
+  Five 
+}
+
+enum Type {
+  Daily
+  Family
+  Exclusive
+  Panoramic
+}
