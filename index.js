@@ -9,7 +9,9 @@ const cors =  require("cors");
 const { request } = require('http');
 const { type } = require('os');
 
-const { pemesananRoutes } = require('./routes/pemesanan.routes')
+const { pemesananRoutes } = require('./routes/pemesanan.routes');
+const { roomRoutes } = require('./routes/room.routes');
+const { messageRoutes } = require('./routes/message.routes'); 
 
 const PORT = 3000;
 server.use(cors());
@@ -21,6 +23,8 @@ server.get("/",(request, response) => {
 });
 
 server.use("/pemesanan", pemesananRoutes);
+server.use("/room", roomRoutes);
+server.use("/message", messageRoutes);
 
 server.all("*", async (req, res) => {
 	res.json({

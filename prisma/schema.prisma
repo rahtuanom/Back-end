@@ -44,3 +44,19 @@ enum Type {
   Exclusive
   Panoramic
 }
+
+model Room {
+  id  Int @id @default(autoincrement())
+  name  String
+  harga Int
+}
+
+model Contactus {
+  id  Int @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email String
+  mobileNumber  String
+  message String
+  cratedAt  DateTime  @default(now())
+}
