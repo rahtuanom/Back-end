@@ -30,7 +30,7 @@ roomRoutes.post("/", async (req, res) => {
     });
     res.status(201).json({
         room: "room Dibuat",
-        data: newroom,
+        data: newRoom,
     });
 });
 
@@ -43,7 +43,7 @@ roomRoutes.put("/:id", async (req, res) => {
 	});
 	res.status(200).json({
 		room: `room with id: ${id} is updated`,
-		data: updatedroom,
+		data: updatedRoom,
 	});
 });
 
