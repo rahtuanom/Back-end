@@ -22,10 +22,11 @@ pemesananRoutes.get("/:id", async (req, res) => {
 });
 
 pemesananRoutes.post("/", async (req, res) => {
-    const { name } = req.body;
+    const { name, email } = req.body; // Extract the email from the request body
     const newPemesanan = await prisma.pemesanan.create({
         data: {
             name: name,
+            email: email, // Include the email property
         },
     });
     res.status(201).json({
@@ -49,7 +50,7 @@ pemesananRoutes.put("/:id", async (req, res) => {
 
 pemesananRoutes.delete("/:id", async (req, res) => {
 	const { id } = req.params;
-	await prisma.pemesananRoutes.delete({
+	await prisma.pemesanan.delete({
 		where: {
 			id: parseInt(id),
 		},

@@ -42,7 +42,7 @@ roomRoutes.delete("/:id", async (req, res) => {
     const { id } = req.params;
     await prisma.room.delete({
         where: {
-            id: parseInt(id),
+            id: parseInt(id)
         },
     });
     res.status(200).json({
