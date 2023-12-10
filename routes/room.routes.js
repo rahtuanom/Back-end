@@ -21,11 +21,15 @@ roomRoutes.get("/:id", async (req, res) => {
 });
 
 roomRoutes.post("/", async (req, res) => {
-    const { name } = req.body;
+    const { name, harga } = req.body;
+    if (!name || !harga || isNaN(harga)) {
+        res.status(400).json({ error: "Invalid or missing 'name' or 'harga' in the request body" });
+        return;
+    }
     const newRoom = await prisma.room.create({
         data: {
-            name: req.body.name,
-            harga: parseInt(req.body.harga)
+            name: name,
+            harga: parseInt(harga),
         },
     });
     res.status(201).json({
@@ -34,29 +38,16 @@ roomRoutes.post("/", async (req, res) => {
     });
 });
 
-roomRoutes.put("/:id", async (req, res) => {
-	const { id } = req.params;
-	const { name } = req.body;
-	const updatedRoom = await prisma.room.update({
-		where: { id: parseInt(id) },
-		data: { name: name },
-	});
-	res.status(200).json({
-		room: `room with id: ${id} is updated`,
-		data: updatedRoom,
-	});
-});
-
 roomRoutes.delete("/:id", async (req, res) => {
-	const { id } = req.params;
-	await prisma.roomRoutes.delete({
-		where: {
-			id: parseInt(id),
-		},
-	});
-	res.status(200).json({
-		room: `room with id: ${id} successfully deleted`,
-	});
+    const { id } = req.params;
+    await prisma.room.delete({
+        where: {
+            id: parseInt(id),
+        },
+    });
+    res.status(200).json({
+        room: `room with id: ${id} successfully deleted`,
+    });
 });
 
 module.exports = { roomRoutes };
