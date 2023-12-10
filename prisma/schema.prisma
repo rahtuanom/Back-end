@@ -27,7 +27,6 @@ enum Adults {
   CHILD_3
   CHILD_4
   CHILD_5 
-
 }
 
 enum Rooms {
@@ -43,6 +42,7 @@ enum Type {
   Family
   Exclusive
   Panoramic
+  Honey
 }
 
 model Room {
