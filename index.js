@@ -25,7 +25,6 @@ server.get("/hello", async (req, res) => {
 	res.send("hello");
 });
 
-
 server.use("/pemesanan", pemesananRoutes);
 server.use("/room", roomRoutes);
 server.use("/message", messageRoutes);
