@@ -7,7 +7,6 @@ roomRoutes.get("/", async (req, res) => {
     res.status(200).send(room);
 });
 
-
 roomRoutes.get("/:id", async (req, res) => {
     const room = await prisma.room.findUnique({
         where: {
