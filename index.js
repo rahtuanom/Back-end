@@ -13,7 +13,7 @@ const { pemesananRoutes } = require('./routes/pemesanan.routes');
 const { roomRoutes } = require('./routes/room.routes');
 const { messageRoutes } = require('./routes/message.routes'); 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.use(cors());
 server.use(express.urlencoded({extended:true}));
 server.use(express.json());
