@@ -24,7 +24,8 @@ roomRoutes.post("/", async (req, res) => {
     const { name } = req.body;
     const newRoom = await prisma.room.create({
         data: {
-            name: name,
+            name: req.body.name,
+            harga: parseInt(req.body.harga)
         },
     });
     res.status(201).json({
