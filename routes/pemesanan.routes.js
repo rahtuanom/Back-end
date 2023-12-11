@@ -10,7 +10,7 @@ pemesananRoutes.post("/", async (req, res) => {
 
     const newPemesanan = await prisma.pemesanan.create({
       data: {
-        name: req.body.nameame,
+        name: req.body.name,
         email: req.body.email,
         check_in: checkInDate.toISOString(),
         check_out: checkOutDate.toISOString(),
