@@ -70,6 +70,4 @@ pemesananRoutes.get("/:id", async (req, res) => {
     else res.status(200).json(pemesanan);
 });
 
-module.exports = {
-    pemesananRoutes
-};
+module.exports = {pemesananRoutes};

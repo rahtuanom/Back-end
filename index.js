@@ -8,7 +8,7 @@ const cors =  require("cors");
 const { request } = require("http");
 const { type } = require("os");
 
-const { pemesananRoutes } = require("./routes/pemesanan.routes");
+const { pemesananRoutes } = require("./routes/pemesanan.routes").default;
 const { roomRoutes } = require("./routes/room.routes");
 const { contactusRoutes } = require("./routes/contactus.routes"); 
 
