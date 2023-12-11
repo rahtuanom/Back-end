@@ -22,11 +22,16 @@ pemesananRoutes.get("/:id", async (req, res) => {
 });
 
 pemesananRoutes.post("/", async (req, res) => {
-    const { name, email } = req.body; // Extract the email from the request body
+    const { email, name, check_in, check_out, adults, room, type_room } = req.body; // Extract the email from the request body
     const newPemesanan = await prisma.pemesanan.create({
         data: {
+            email: email,
             name: name,
-            email: email, // Include the email property
+            check_in: check_in,
+            check_out: check_out,
+            adults: adults,
+            room: room,
+            type_room: type_room
         },
     });
     res.status(201).json({
