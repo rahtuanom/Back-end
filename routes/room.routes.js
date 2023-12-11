@@ -50,4 +50,4 @@ roomRoutes.delete("/:id", async (req, res) => {
     });
 });
 
-module.exports = { pemesananRoutes };
+module.exports = { roomRoutes };
