@@ -40,14 +40,15 @@ contactusRoutes.get("/", async (req, res) => {
 });
 
 contactusRoutes.post("/", async (req, res) => {
-    const { firstName, lastName, email, message, createdAt } = req.body; // Removed mobileNumber from destructuring
+    const { firstName, lastName, email, mobileNumber, message, createdAt } = req.body;
     const newContactus = await prisma.contactus.create({
         data: {
             firstName: firstName,
             lastName: lastName,
             email: email,
+            mobileNumber: mobileNumber,
             message: message,
-            createdAt: createdAt, // Corrected the field name to createdAt
+            createdAt: createdAt,
         },
     });
     res.status(201).json({
@@ -55,5 +56,4 @@ contactusRoutes.post("/", async (req, res) => {
         data: newContactus,
     });
 });
-
 module.exports = { contactusRoutes };
