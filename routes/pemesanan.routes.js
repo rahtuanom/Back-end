@@ -22,22 +22,34 @@ pemesananRoutes.get("/:id", async (req, res) => {
 });
 
 pemesananRoutes.post("/", async (req, res) => {
-    const { email, name, check_in, check_out, adults, room, type_room } = req.body; // Extract the email from the request body
-    const newPemesanan = await prisma.pemesanan.create({
-        data: {
-            email: email,
-            name: name,
-            check_in: check_in,
-            check_out: check_out,
-            adults: adults,
-            room: room,
-            type_room: type_room
-        },
-    });
-    res.status(201).json({
-        message: "Pemesanan Dibuat",
-        data: newPemesanan,
-    });
+    const { email, name, check_in, check_out, adults, room, type_room } = req.body;
+    try {
+        const newPemesanan = await prisma.pemesanan.create({
+            data: {
+                email: email,
+                name: name,
+                check_in: check_in,
+                check_out: check_out,
+                adults: adults,
+                room: room,
+                type_room: type_room
+            },
+        });
+        res.status(201).json({
+            message: "Pemesanan Dibuat",
+            data: newPemesanan,
+        });
+    } catch (error) {
+        if (error.code === 'P2002' && error.meta?.target === 'Pemesanan_email_key') {
+            res.status(400).json({
+                message: "Email sudah digunakan untuk pemesanan lain",
+            });
+        } else {
+            res.status(500).json({
+                message: "Terjadi kesalahan saat membuat pemesanan",
+            });
+        }
+    }
 });
 
 pemesananRoutes.put("/:id", async (req, res) => {
