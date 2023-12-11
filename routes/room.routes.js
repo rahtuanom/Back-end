@@ -1,6 +1,6 @@
-import { Router } from "express";
-const roomRoutes = Router();
-import { prisma } from "../config/prisma";
+const express = require("express");
+const roomRoutes = express.Router();
+const { prisma } = require("../config/prisma");
 
 roomRoutes.get("/", async (req, res) => {
     const room = await prisma.room.findMany();
