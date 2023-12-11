@@ -2,15 +2,13 @@ const express = require("express");
 const pemesananRoutes  = express.Router();
 const { prisma } = require("../config/prisma");
 
-
-
 pemesananRoutes.post("/", async (req, res) => {
 
   try {
     const checkInDate = new Date(Date.parse(req.body.check_in));
     const checkOutDate = new Date(Date.parse(req.body.check_out));
 
-    const newReserve = await prisma.reserve.create({
+    const newPemesanan = await prisma.pemesanan.create({
       data: {
         name: req.body.full_name,
         email: req.body.email_address,
@@ -23,7 +21,7 @@ pemesananRoutes.post("/", async (req, res) => {
       },
     });
 
-    res.status(200).json(newReserve);
+    res.status(200).json(newPemesanan);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -32,11 +30,11 @@ pemesananRoutes.post("/", async (req, res) => {
 
 pemesananRoutes.get("/", async (req, res) => {
   try {
-    const reservation = await prisma.reserve.findMany();
-    if (reservation) {
-      res.status(200).json(reservation);
+    const Pemesanan = await prisma.pemesanan.findMany();
+    if (Pemesanan) {
+      res.status(200).json(Pemesanan);
     } else {
-      res.status(404).json({ message: "Reservation not found" });
+      res.status(404).json({ message: "Pemesanan not found" });
     }
   } catch (error) {
     console.error(error);
