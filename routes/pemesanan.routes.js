@@ -8,10 +8,10 @@ pemesananRoutes.post("/", async (req, res) => {
     const checkInDate = new Date(Date.parse(req.body.check_in));
     const checkOutDate = new Date(Date.parse(req.body.check_out));
 
-    const newPemesanan = await prisma.pemesanan.create({
+    const newPemesanan = await prisma.Pemesanan.create({
       data: {
-        name: req.body.full_name,
-        email: req.body.email_address,
+        name: req.body.nameame,
+        email: req.body.email,
         check_in: checkInDate.toISOString(),
         check_out: checkOutDate.toISOString(),
         adults: req.body.adults,
@@ -24,7 +24,7 @@ pemesananRoutes.post("/", async (req, res) => {
     res.status(200).json(newPemesanan);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal post server error" });
   }
 });
 
@@ -38,7 +38,7 @@ pemesananRoutes.get("/", async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal get server error" });
   }
 });
 
