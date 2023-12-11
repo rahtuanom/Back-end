@@ -1,7 +1,51 @@
 const express = require("express");
-const pemesananRoutes = express.Router();
+const reserveRoutes = express.Router();
 const { prisma } = require("../config/prisma");
 
+
+
+pemesananRoutes.post("/", async (req, res) => {
+
+  try {
+    const checkInDate = new Date(Date.parse(req.body.check_in));
+    const checkOutDate = new Date(Date.parse(req.body.check_out));
+
+    const newReserve = await prisma.reserve.create({
+      data: {
+        name: req.body.full_name,
+        email: req.body.email_address,
+        check_in: checkInDate.toISOString(),
+        check_out: checkOutDate.toISOString(),
+        adults: req.body.adults,
+        childs: req.body.childs,
+        rooms: req.body.rooms,
+        type_room: req.body.type_room,
+      },
+    });
+
+    res.status(200).json(newReserve);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+pemesananRoutes.get("/", async (req, res) => {
+  try {
+    const reservation = await prisma.reserve.findMany();
+    if (reservation) {
+      res.status(200).json(reservation);
+    } else {
+      res.status(404).json({ message: "Reservation not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+ 
+  //
 pemesananRoutes.get("/", async (req, res) => {
     const pemesanan = await prisma.pemesanan.findMany();
     res.status(200).send(pemesanan);
@@ -21,61 +65,4 @@ pemesananRoutes.get("/:id", async (req, res) => {
     else res.status(200).json(pemesanan);
 });
 
-pemesananRoutes.post("/", async (req, res) => {
-    const { name, email, check_in, check_out, adults, childs, rooms, type_room } = req.body;
-    try {
-        const newPemesanan = await prisma.pemesanan.create({
-            data: {
-                name: name,
-                email: email,
-                check_in: check_in,
-                check_out: check_out,
-                adults: adults,
-                childs: childs,
-                room: rooms,
-                type_room: type_room
-            },
-        });
-        res.status(201).json({
-            message: "Pemesanan Dibuat",
-            data: newPemesanan,
-        });
-    } catch (error) {
-        if (error.code === 'P2002' && error.meta?.target === 'Pemesanan_email_key') {
-            res.status(400).json({
-                message: "Email sudah digunakan untuk pemesanan lain",
-            });
-        } else {
-            res.status(500).json({
-                message: "Terjadi kesalahan saat membuat pemesanan",
-            });
-        }
-    }
-});
-
-pemesananRoutes.put("/:id", async (req, res) => {
-	const { id } = req.params;
-	const { name } = req.body;
-	const updatedPemesanan = await prisma.pemesanan.update({
-		where: { id: parseInt(id) },
-		data: { name: name },
-	});
-	res.status(200).json({
-		message: `pemesanan with id: ${id} is updated`,
-		data: updatedPemesanan,
-	});
-});
-
-pemesananRoutes.delete("/:id", async (req, res) => {
-	const { id } = req.params;
-	await prisma.pemesanan.delete({
-		where: {
-			id: parseInt(id),
-		},
-	});
-	res.status(200).json({
-		message: `pemesanan with id: ${id} successfully deleted`,
-	});
-});
-
-module.exports = { pemesananRoutes };
+export default { pemesananRoutes };
