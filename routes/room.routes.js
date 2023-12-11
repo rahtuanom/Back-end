@@ -1,6 +1,6 @@
-const express = require("express");
-const roomRoutes = express.Router();
-const { prisma } = require("../config/prisma");
+import { Router } from "express";
+const roomRoutes = Router();
+import { prisma } from "../config/prisma";
 
 roomRoutes.get("/", async (req, res) => {
     const room = await prisma.room.findMany();
@@ -50,4 +50,4 @@ roomRoutes.delete("/:id", async (req, res) => {
     });
 });
 
-module.exports = { roomRoutes };
+export default { roomRoutes };
