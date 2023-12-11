@@ -8,7 +8,7 @@ pemesananRoutes.post("/", async (req, res) => {
     const checkInDate = new Date(Date.parse(req.body.check_in));
     const checkOutDate = new Date(Date.parse(req.body.check_out));
 
-    const newPemesanan = await prisma.Pemesanan.create({
+    const newPemesanan = await prisma.pemesanan.create({
       data: {
         name: req.body.nameame,
         email: req.body.email,
