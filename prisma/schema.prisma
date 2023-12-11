@@ -17,16 +17,27 @@ model Pemesanan {
   check_in DateTime
   check_out DateTime
   adults  Adults  @default(NONE)
+  childs Childs @default(NONE)
   rooms Rooms @default(One)
   type_room Type @default(Daily)
 }
 enum Adults {
   NONE
+  ADULT_1
+  ADULT_2
+  ADULT_3
+  ADULT_4
+  ADULT_5 
+  ADULT_6
+}
+
+enum Childs {
+  NONE
   CHILD_1
   CHILD_2
   CHILD_3
   CHILD_4
-  CHILD_5 
+  CHILD_5
 }
 
 enum Rooms {
