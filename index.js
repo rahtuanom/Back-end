@@ -10,7 +10,7 @@ const { type } = require("os");
 
 const { pemesananRoutes } = require("./routes/pemesanan.routes");
 const { roomRoutes } = require("./routes/room.routes");
-const { messageRoutes } = require("./routes/message.routes"); 
+const { contactusRoutes } = require("./routes/contactus.routes"); 
 
 const PORT = process.env.PORT || 3000;
 server.use(cors());
@@ -27,11 +27,11 @@ server.get("/hello", async (req, res) => {
 
 server.use("/pemesanan", pemesananRoutes);
 server.use("/room", roomRoutes);
-server.use("/message", messageRoutes);
+server.use("/contactus", contactusRoutes);
 
 server.all("*", async (req, res) => {
 	res.json({
-		message: "Routes tidak tersedia"
+		contactus: "Routes tidak tersedia"
 	});
 });
 
