@@ -21,7 +21,7 @@ contactusRoutes.post("/", async (req, res) => {
     });
     res.status(201).json({
         contactus: "contactus created",
-        data: newcontactus,
+        data: newContactus,
     });
 });
 
