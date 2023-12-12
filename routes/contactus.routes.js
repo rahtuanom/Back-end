@@ -40,15 +40,14 @@ contactusRoutes.get("/", async (req, res) => {
 });
 
 contactusRoutes.post("/", async (req, res) => {
-    const { firstName, lastName, email, mobileNumber, message, createdAt } = req.body;
+    const { firstName, lastName, email, mobile, message } = req.body;
     const newContactus = await prisma.contactus.create({
         data: {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            mobileNumber: mobileNumber,
+            mobileNumber: mobile,
             message: message,
-            createdAt: createdAt,
         },
     });
     res.status(201).json({
